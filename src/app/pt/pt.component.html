@@ -1,0 +1,61 @@
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid ">
+      
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">ข้อมูลผู้ป่วย Admit</a>
+          </div>
+    <div class="nav navbar-right">
+           <button type="button" class="btn btn-primary">+</button>
+          </div>
+        </div>
+      </nav>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>รายการที่</th>
+                <th>HN</th>
+                <th>วันที่ Admit</th>
+                <th>วันที่ Discharge</th>
+                <th>จำนวนวัน</th>
+                <th>สถานะวันนี้</th>
+                <th>แก้ไข</th>
+                <th>ลบ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  *ngFor="let p of pts; let i=index" >
+                <td scope="row">{{i+1}}.</td>
+                <td>{{p?.hn}}</td>
+                <td>{{getThaidate(p?.admitdate)}}</td>
+                <td>{{getThaidate(p?.dischargedate)}}</td>
+                <td class="text-center">{{getdaydiff(p?.admitdate,p?.dischargedate)}}</td>
+                <td>{{getTodayStatus(p?.dischargedate)}}</td>
+                <td><button type="button" class="btn  btn-info"  (click)="openModal(template,p)">
+                    <i class="fa-solid fa-pen-to-square"></i></button></td>
+                <td><button type="button" class="btn  btn-danger">
+                    <i class="fa-solid fa-pen-to-square"></i></button></td>
+            </tr>
+           
+        </tbody>
+    </table>
+</div>
+
+
+
+<ng-template #template>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+         <span aria-hidden="true">×</span>
+      </button>
+   </div>
+   <div class="modal-body">
+    <app-pt-add [pt]="pedit"></app-pt-add>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+   </div>
+</ng-template>
+

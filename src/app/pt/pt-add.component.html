@@ -1,0 +1,33 @@
+<div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <div class="container">
+          <form>
+              <div class="form-group row">
+                  <label for="inputName" class="col-sm-1-12 col-form-label">HN</label>
+                  <div class="col-sm-1-12">
+                      <input type="text" class="form-control" name="inputName" id="inputName" placeholder="" [(ngModel)]="pt?.hn" >
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputName" class="col-sm-1-12 col-form-label">วันAdmit</label>
+                <div class="col-sm-1-12">
+                    <input type="text" class="form-control" name="inputName" id="inputName"  [(ngModel)]="pt?.admitdate" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputName" class="col-sm-1-12 col-form-label">วันDischarge</label>
+                <div class="col-sm-1-12">
+                    <input type="text" class="form-control" name="inputName" id="inputName" placeholder="">
+                </div>
+            </div>
+              <div class="form-group row">
+                  <div class="offset-sm-2 col-sm-10">
+                      <button type="button" class="btn btn-primary" (click)="doSave()" >บันทึก</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+        
+    </div>
+</div>
