@@ -19,7 +19,7 @@ export class ApiChoteService {
   }
 
   constructor(private http: HttpClient) {}
-  api = 'http://127.0.0.1:3002/coward/';
+  api = 'http://127.0.0.1:3000/coward/';
   async sqlName(sqlName: string) {
     const url = `${this.apiUrl}/getData`;
     const object = {

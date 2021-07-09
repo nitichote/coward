@@ -13,6 +13,8 @@ import { PtAddComponent } from './pt/pt-add.component';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+
+
 @NgModule({
   declarations: [ThaiDatePipe,
     AppComponent,
