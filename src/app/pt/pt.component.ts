@@ -18,8 +18,11 @@ export class PtComponent implements OnInit {
   locales = listLocales();
 pts:any=[];
 pt:any={};
+
+
 pedit:any;
 today=Date.now();
+lab=new Date();
 admit = new Date();
 discharge= new Date();
 action="add";
@@ -32,33 +35,60 @@ diffInMilliSeconds -= days * 86400;
 return days;
 }
 doSave(){
-  console.log("save"
-  );
-  
+  console.log("save");
   if(this.action=="add"){
   console.log(this.pt,this.action);
-  
-  
   }else{
-  
     console.log(this.pt,this.action);
   }
-  
+ //this.pt.ptcode="aaaasaa";
+  this.pt.admitdate = this.admit.toISOString().split('T')[0];
+  this.pt.labdate = this.lab.toISOString().split('T')[0];
+  this.pt.dischargedate = this.discharge.toISOString().split('T')[0];
+console.log(this.pt);
+let c = {...this.pt};
+//console.log(this.dobdate.toISOString().split('T')[0]);
+this.ps.insertUpdateData("pt","dd",this.pt)
+//Object.assign(c, {key3: "value3"});
+//console.log(c);
   }
 doAdd(template: TemplateRef<any>,p:any){
   this.action="add";
+  this.admit = new Date();
+     
+var newDate = new Date(Date.now() + this.days * 24*60*60*1000);
+this.discharge =newDate;
+this.admit = new Date();
+this.lab = new Date();
+  console.log("admit",this.admit);
+  console.log("discharge",this.discharge);
   this.openModal(template,p);
 };
+onChange(e:Date){
+  console.log("on change",e);
+  console.log("labdate",this.lab);
+  
+}
+doChangeDate(e:Date){
+ // console.log(this.lab);
+ // console.log(e);
+ this.calDischarge(e);
+
+}
 doEdit(template: TemplateRef<any>,p:any){
   this.action ="edit";
   this.openModal(template,p);
+  let d2 = String(p.dischargedate).substr(0,10);
+  this.discharge = new Date(d2);
+  let d = String(p.admitdate).substr(0,10);
+   let d3 = String(p.labdate).substr(0,10);
+  this.lab = new Date(d3);
+ this.admit = new Date(d);
 }
 openModal(template: TemplateRef<any>,p:any) {
   console.log(p);
-  let d = String(p.admitdate).substr(0,10);
-  let d2 = String(p.dischargedate).substr(0,10);
- this.admit = new Date(d);
- this.discharge = new Date(d2);
+  
+
   this.pt =p;
   this.modalRef = this.modalService.show(template);
 }
@@ -81,21 +111,28 @@ if(days >0){
 return res;
 }
 getThaidate(d:string){
+  let r="";
+ // if(is)
   let a = d.substr(0,10);
 return a.substr(-2)+"-"+a.substr(5,2)+"-"+a.substr(0,4);
 }
-
+days=14;
+calDischarge(sdate:Date){
+  
+var newDate = new Date(Number(sdate) + this.days * 24*60*60*1000);
+  this.discharge =newDate;
+ //console.log("next",newDate);
+}
   ngOnInit(): void {
     this.pt['hn']="";
+    this.pt['labdate']=  new Date().toISOString().split('T')[0];
     this.pt['admitdate']=  new Date().toISOString().split('T')[0];
+    this.lab = new Date();
     this.admit = new Date();
-    let days = 14;
-var newDate = new Date(Date.now() + days * 24*60*60*1000);
-  //  this.discharge =this.admit.setDate(this.admit.getDate() + 14); 
-  this.discharge =newDate;
-  console.log(newDate);
+   this.calDischarge(new Date());
+
   
-    this.pt['dischargedate']= this.pt.dob = new Date().toISOString().split('T')[0];
+    this.pt['dischargedate']=  new Date().toISOString().split('T')[0];
     console.log(this.pt);
     this.ps.getpts().then((x:any) => {
       this.pts = x["message"];

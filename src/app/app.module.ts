@@ -13,21 +13,27 @@ import { PtAddComponent } from './pt/pt-add.component';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { SettingComponent } from './setting/setting.component';
+import { AdminComponent } from './admin/admin.component';
+import { HosComponent } from './hos/hos.component';
+import { TableModule } from 'primeng/table';
+import { MessageService } from 'primeng/api';
+
 
 
 @NgModule({
   declarations: [ThaiDatePipe,
     AppComponent,
-    HomeComponent,PtComponent, PtAddComponent
+    HomeComponent,PtComponent, PtAddComponent, SettingComponent, AdminComponent, HosComponent, 
    
   ],
-  imports: [BrowserAnimationsModule,
+  imports: [BrowserAnimationsModule,TableModule,
     BrowserModule,
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),
     BsDropdownModule,
     HttpClientModule,CommonModule ,ModalModule
   ],
-  providers: [BsDatepickerConfig, BsDropdownConfig,BsModalService],
+  providers: [MessageService,BsDatepickerConfig, BsDropdownConfig,BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

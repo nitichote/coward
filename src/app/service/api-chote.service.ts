@@ -53,6 +53,12 @@ export class ApiChoteService {
   //  const plainText = bytes.toString(CryptoJs.enc.Utf8);
   //  return JSON.parse(plainText.toString());
   }
+  async getLogin(user:string,pass:string) {
+    const url = this.api+"login";
+
+    const body = { user:user,pass:pass };
+    return await this.http.post(url, body).toPromise();
+  }
   async getRout(r:string) {
     //const url =
    //   "https://dmfzero.com/apileaf/apis.php/dentalkpi/dentreporttemplate/hdc";

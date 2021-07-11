@@ -10,23 +10,27 @@
             </div>
         </div>
     </nav>
-    <table class="table">
-        <thead>
+    <p-table  id="Table" [value]="pts"  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" >
+        <ng-template pTemplate="header">
             <tr>
                 <th>รายการที่</th>
                 <th>HN</th>
-                <th>วันที่ทราบผลLab</th>
-                <th>วันที่ Discharge</th>
+                <th>ชื่อ</th>
+                <th>วันผลLab</th>
+                <th>วันAdmit</th>
+                <th>วันDischarge</th>
                 <th>จำนวนวัน</th>
                 <th>สถานะวันนี้</th>
                 <th>แก้ไข</th>
                 <th>ลบ</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of pts; let i=index">
+        </ng-template>
+        <ng-template pTemplate="body" let-p let-i="rowIndex">
+            <tr>
                 <td scope="row">{{i+1}}.</td>
                 <td>{{p?.hn}}</td>
+                <td>{{p?.ptname}}</td>
+                <td>{{getThaidate(p?.labdate)}}</td>
                 <td>{{getThaidate(p?.admitdate)}}</td>
                 <td>{{getThaidate(p?.dischargedate)}}</td>
                 <td class="text-center">{{getdaydiff(p?.admitdate,p?.dischargedate)}}</td>
@@ -36,9 +40,11 @@
                 <td><button type="button" class="btn  btn-danger">
                     <i class="fa-solid fa-pen-to-square"></i></button></td>
             </tr>
-
-        </tbody>
-    </table>
+        </ng-template>
+    </p-table>
+    
+    
+   
 </div>
 
 
@@ -59,23 +65,35 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="admit" class="form-label">วันที่ทราบผลLab</label>
-                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันที่ทราบผลLab" class="form-control" #dp="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="admit" bsDatepicker>
-                    <span class="input-group-text fa fa-calendar" id="basic-addon2" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"></span>
+                <label for="inputName" class="col-sm-1-12 col-form-label">ชื่อ สกุล</label>
+                <div class="col-sm-1-12">
+                    <input type="text" class="form-control" name="ptname" id="ptname" placeholder="" [(ngModel)]="pt.ptname">
                 </div>
-
-
-
             </div>
             <div class="form-group row">
-                <label for="admit" class="form-label">วันDischarge</label>
-                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันAdmit" class="form-control" #dp2="bsDatepicker" name="bsDatepicker2" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="discharge" bsDatepicker>
+                <label for="admit" class="form-label">วันที่ทราบผลLab</label>
+                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันที่ทราบผลLab" class="form-control" #dp="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}"
+                     [(ngModel)]="lab"
+                     (bsValueChange)="doChangeDate($event)"
+                     bsDatepicker>
+                    <span class="input-group-text fa fa-calendar" id="basic-addon2"    (click)="dp.toggle();" [attr.aria-expanded]="dp.isOpen"></span>
+                </div> 
+            </div>  
+            <div class="form-group row">
+                <label for="admit" class="form-label">วันAdmit</label>
+                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันAdmit" class="form-control" #dp3="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="lab" bsDatepicker>
+                    <span class="input-group-text fa fa-calendar" id="basic-addon3" (click)="dp3.toggle()"  [attr.aria-expanded]="dp3.isOpen"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="admit" class="form-label">วันDischarge (14 วันหลังทราบผลLab)</label>
+                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="14 วันหลังผลLab" class="form-control" #dp2="bsDatepicker" name="bsDatepicker2" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="discharge" bsDatepicker>
                     <span class="input-group-text fa fa-calendar" id="basic-addon2" (click)="dp2.toggle()" [attr.aria-expanded]="dp2.isOpen"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-1-12">
-                    <div class="d-flex flex-row-reverse bd-highlight"><button type="button" (click)="doSave()" class="btn btn-primary  float-right">Submit</button></div>
+                    <div class="d-flex flex-row-reverse bd-highlight"><button type="button" (click)="doSave()" class="btn btn-primary  float-right">บันทึก</button></div>
                 </div>
             </div>
         </form>

@@ -12,12 +12,16 @@
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)" [routerLink]="['/pt']"  >ข้อมูลการใช้เตียง</a>
         </li>
-        
-       
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)" [routerLink]="['/setting']"  >ตั้งค่าเริ่มต้น</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)" [routerLink]="['/admin']"  >Admin</a>
+        </li>
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="text" placeholder="pincode" aria-label="">
-        <button class="btn btn-outline-success" type="submit">Login</button>
+        <input class="form-control me-2" type="text" placeholder="username" aria-label=""> &nbsp; <input class="form-control me-2" type="text" placeholder="pincode" aria-label="">
+        <button class="btn btn-outline-success" type="button" (click)="goLogin()" >Login</button>
       </form>
     </div>
   </div>

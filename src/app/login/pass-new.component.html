@@ -1,0 +1,48 @@
+
+<div class="container" >
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h5>ตั้งค่า Pincode ใหม่ ด้วยตัวเลข 4 ตัว</h5>
+				
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							
+							<span class="input-group-text"><i class="fas fa-key fa-2x"></i></span>
+						</div>
+						<input type="number" class="form-control"  name="user" [(ngModel)]="pass1" maxlength="4" pattern="\d{4}" required placeholder="New pincode">
+						
+					</div>
+					<div class="input-group form-group mt-3 ">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key fa-2x" ></i></span>
+						</div>
+						<input type="password" name="pass2" class="form-control" [(ngModel)]="pass2"  placeholder="พิมพ์ pincode ให้ตรงกัน">
+					</div>
+					<div class="mt-3 row align-items-center remember">
+						<span class="ml-15">email address สำหรับ กู้คืน pincode</span>
+					</div>
+                    <div class="input-group form-group">
+						<div class="input-group-prepend">
+							
+							<span class="input-group-text"><i class="fas fa-at fa-2x"></i></span>
+						</div>
+						<input type="email" class="form-control"  name="email" [(ngModel)]="email" placeholder="email address">
+						
+					</div>
+					<div class="d-flex mt-3 float-end">
+				<input type="button" value="บันทึก"  (click)="doCreatePass()" class="btn float-end login_btn">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+			
+			</div>
+		</div>
+	</div>
+
+</div>
+<p-toast position="top-right"></p-toast>
