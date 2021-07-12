@@ -5,6 +5,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { thLocale } from 'ngx-bootstrap/locale';
 import { listLocales } from 'ngx-bootstrap/chronos';
+import {ConfirmationService} from 'primeng/api';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 defineLocale('th', thLocale);
 @Component({
   selector: 'app-pt',
@@ -13,7 +15,7 @@ defineLocale('th', thLocale);
 })
 export class PtComponent implements OnInit {
   modalRef!: BsModalRef;
-  constructor(private localeService: BsLocaleService,private modalService: BsModalService,private ps: ApiChoteService,) { }
+  constructor(private confirmationService: ConfirmationService,  private localeService: BsLocaleService,private modalService: BsModalService,private ps: ApiChoteService,) { }
   locale = 'th';
   locales = listLocales();
 pts:any=[];
@@ -34,8 +36,23 @@ let d2:Date = new Date(s2);
 diffInMilliSeconds -= days * 86400;
 return days;
 }
+doDelete(r:any, i:number) {
+  console.log("r=",r);
+  
+  this.confirmationService.confirm({
+    message: "ท่านต้องการลบข้อมูลรายการนี้?",
+    accept: () => {
+      this.pts.splice(i, 1);
+      let where = { row_id: r.row_id };
+console.log(where);
+
+  this.ps.deleteData("pt", where).then((x) => {});
+      //Actual logic to perform a confirmation
+    },
+  });
+}
 doSave(){
-  console.log("save");
+  console.log("save",this.pt);
   if(this.action=="add"){
   console.log(this.pt,this.action);
   }else{
@@ -45,17 +62,20 @@ doSave(){
   this.pt.admitdate = this.admit.toISOString().split('T')[0];
   this.pt.labdate = this.lab.toISOString().split('T')[0];
   this.pt.dischargedate = this.discharge.toISOString().split('T')[0];
-console.log(this.pt);
 let c = {...this.pt};
 //console.log(this.dobdate.toISOString().split('T')[0]);
-this.ps.insertUpdateData("pt","dd",this.pt)
+let where ={row_id:this.pt.row_id};
+console.log("where=",where);
+
+this.ps.insertUpdateData("pt",where,this.pt)
 //Object.assign(c, {key3: "value3"});
 //console.log(c);
   }
 doAdd(template: TemplateRef<any>,p:any){
+  this.pt={};
   this.action="add";
   this.admit = new Date();
-     
+ this.pt.hcode=this.myhos.off_id;    
 var newDate = new Date(Date.now() + this.days * 24*60*60*1000);
 this.discharge =newDate;
 this.admit = new Date();
@@ -85,6 +105,7 @@ doEdit(template: TemplateRef<any>,p:any){
   this.lab = new Date(d3);
  this.admit = new Date(d);
 }
+isConfirm=false;
 openModal(template: TemplateRef<any>,p:any) {
   console.log(p);
   
@@ -122,7 +143,8 @@ calDischarge(sdate:Date){
 var newDate = new Date(Number(sdate) + this.days * 24*60*60*1000);
   this.discharge =newDate;
  //console.log("next",newDate);
-}
+} 
+myhos:any;
   ngOnInit(): void {
     this.pt['hn']="";
     this.pt['labdate']=  new Date().toISOString().split('T')[0];
@@ -130,13 +152,19 @@ var newDate = new Date(Number(sdate) + this.days * 24*60*60*1000);
     this.lab = new Date();
     this.admit = new Date();
    this.calDischarge(new Date());
-
+  
+   if (localStorage.getItem('myhos')) { 
+    const myItem:any = localStorage.getItem('myhos');
+    //let remember = localStorage.getItem('remember');
+    //console.log(myItem);
+    this.myhos= JSON.parse(myItem);
+   }
   
     this.pt['dischargedate']=  new Date().toISOString().split('T')[0];
-    console.log(this.pt);
+   // console.log(this.pt);
     this.ps.getpts().then((x:any) => {
       this.pts = x["message"];
-      console.log(this.pts);
+    //  console.log(this.pts);
       this.localeService.use(this.locale);
       
     });

@@ -18,7 +18,8 @@ import { AdminComponent } from './admin/admin.component';
 import { HosComponent } from './hos/hos.component';
 import { TableModule } from 'primeng/table';
 import { MessageService } from 'primeng/api';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 
 @NgModule({
@@ -28,12 +29,12 @@ import { MessageService } from 'primeng/api';
    
   ],
   imports: [BrowserAnimationsModule,TableModule,
-    BrowserModule,
+    BrowserModule,ConfirmDialogModule,
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),
     BsDropdownModule,
     HttpClientModule,CommonModule ,ModalModule
   ],
-  providers: [MessageService,BsDatepickerConfig, BsDropdownConfig,BsModalService],
+  providers: [ConfirmationService,MessageService,BsDatepickerConfig, BsDropdownConfig,BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

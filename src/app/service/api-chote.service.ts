@@ -1,11 +1,44 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import * as m from "../model/cowordmodel";
+
+
 //-import * as CryptoJs from "crypto-js";
 //import * as crypto from 'crypto-js';
 @Injectable({
   providedIn: "root",
 })
 export class ApiChoteService {
+
+  public isLogin = false;
+  h!:m.Hospital36;
+  getLogStatus(){
+
+
+  }
+  async getLogin(user:string,pass:string) {
+    const url = this.api+"login";
+
+    const body = { user:user,pass:pass };
+    return await this.http.post(url, body).toPromise();
+  }
+  setLogin(){
+    this.isLogin =true;
+  }
+  setLogout(){
+    this.isLogin = false;
+  }
+  setLocal(o:m.Hospital36,isRemember:boolean) {
+   let remember =isRemember;
+    let x ={...o};
+    const removeProp = 'pincode';
+
+//const { [removeProp]: remove, ...rest } = x;
+ 
+   
+localStorage.setItem("myhos", JSON.stringify(x));
+localStorage.setItem("remember", String(isRemember));
+  }
   get getKey() {
     return "13";
   }
@@ -53,12 +86,7 @@ export class ApiChoteService {
   //  const plainText = bytes.toString(CryptoJs.enc.Utf8);
   //  return JSON.parse(plainText.toString());
   }
-  async getLogin(user:string,pass:string) {
-    const url = this.api+"login";
-
-    const body = { user:user,pass:pass };
-    return await this.http.post(url, body).toPromise();
-  }
+ 
   async getRout(r:string) {
     //const url =
    //   "https://dmfzero.com/apileaf/apis.php/dentalkpi/dentreporttemplate/hdc";
@@ -124,6 +152,22 @@ console.log(api2020);
     const rs: any = await this.http.post(url, body).toPromise();
     console.log(rs);
 
+    return rs;
+  }
+  async deleteData(tableName: string, whereData: any) {
+    const f = [];
+    f.push(whereData);
+    const url = `${this.api}del`;
+    const data = {
+      tableName,
+      whereName: f,
+    };
+    const body = {
+      data,
+    };
+    // console.log(body);
+
+    const rs: any = await this.http.post(url, body).toPromise();
     return rs;
   }
 }
