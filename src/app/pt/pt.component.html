@@ -10,7 +10,7 @@
             </div>
         </div>
     </nav>
-    <p-table  id="Table" [value]="pts"  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" >
+    <p-table class="Table" [value]="pts" [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>รายการที่</th>
@@ -37,17 +37,14 @@
                 <td>{{getTodayStatus(p?.dischargedate)}}</td>
                 <td><button type="button" class="btn  btn-info" (click)="doEdit(template,p)">
                     <i class="fa-solid fa-pen-to-square"></i></button></td>
-                <td><button   (click)="doDelete(p,i)" type="button" class="btn  btn-danger">
+                <td><button (click)="doDelete(p,i)" type="button" class="btn  btn-danger">
                     <i class="fa-solid fa-pen-to-square"></i></button></td>
             </tr>
         </ng-template>
     </p-table>
-    <p-confirmDialog
-  header="ลบข้อมูล"
-  [style]="{ width: '400px',height:'205px' }"
-></p-confirmDialog>
-    
-   
+    <p-confirmDialog header="ลบข้อมูล" [style]="{ width: '400px',height:'205px' }"></p-confirmDialog>
+
+
 </div>
 
 
@@ -75,17 +72,15 @@
             </div>
             <div class="form-group row">
                 <label for="admit" class="form-label">วันที่ทราบผลLab</label>
-                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันที่ทราบผลLab" class="form-control" #dp="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}"
-                     [(ngModel)]="lab"
-                     (bsValueChange)="doChangeDate($event)"
-                     bsDatepicker>
-                    <span class="input-group-text fa fa-calendar" id="basic-addon2"    (click)="dp.toggle();" [attr.aria-expanded]="dp.isOpen"></span>
-                </div> 
-            </div>  
+                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันที่ทราบผลLab" class="form-control" #dp="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="lab" (bsValueChange)="doChangeDate($event)"
+                        bsDatepicker>
+                    <span class="input-group-text fa fa-calendar" id="basic-addon2" (click)="dp.toggle();" [attr.aria-expanded]="dp.isOpen"></span>
+                </div>
+            </div>
             <div class="form-group row">
                 <label for="admit" class="form-label">วันAdmit</label>
                 <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันAdmit" class="form-control" #dp3="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="lab" bsDatepicker>
-                    <span class="input-group-text fa fa-calendar" id="basic-addon3" (click)="dp3.toggle()"  [attr.aria-expanded]="dp3.isOpen"></span>
+                    <span class="input-group-text fa fa-calendar" id="basic-addon3" (click)="dp3.toggle()" [attr.aria-expanded]="dp3.isOpen"></span>
                 </div>
             </div>
             <div class="form-group row">
@@ -105,7 +100,3 @@
         <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
     </div>
 </ng-template>
-
-
-
-

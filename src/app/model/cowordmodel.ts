@@ -9,6 +9,8 @@ export interface Pt {
     dischargedate?:string;
     isdischarge?:string;
     labdate?:string;
+    
+    bedcode:string;
     }
 
 export interface Hospital36 {

@@ -1,6 +1,3 @@
-
-
-
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid ">
@@ -13,8 +10,8 @@
             </div>
         </div>
     </nav>
- 
-    <p-table id="Table" [value]="hoss" [autoLayout]="true"  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" >
+
+    <p-table class="Table" [value]="hoss" [autoLayout]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>รายการที่</th>
@@ -37,7 +34,7 @@
                 <td class="dates">{{getThaidate(p?.dob)}}</td>
                 <td>{{p?.bed}}</td>
                 <td>{{p?.bedremain}}</td>
-                
+
                 <td>{{p?.hossector}}</td>
                 <td>{{address}}</td>
                 <td><button type="button" class="btn  btn-info" (click)="doEdit(template,p)">
@@ -59,50 +56,104 @@
     </div>
     <div class="modal-body">
         <form>
-<div class="card">
-    <img class="card-img-top" src="holder.js/100x180/" alt="">
-    <div class="card-body">
-        <! –– แถวที่1 ––> <div class="row"> <div class="col-sm"> <div class="form-group"> <label for="off_id">รหัสรพ.</label> <input type="text" name="off_id" id="off_id" [(ngModel)]="h.off_id" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div> <div class="col-sm"> <div class="form-group"> <label for="off_name">ชื่อรพ.</label> <input type="text" name="off_name" id="off_name" [(ngModel)]="h.off_name" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div></div>
-        <! –– แถวที่2 ––> <div class="row"> <div class="col-sm"> <div class="form-group">
-           
-            
-            <label for="pvcode">รหัสจังหวัด</label> 
-            <p-dropdown name="pvcode" (onChange)="onPvchange($event)" [options]="pvs" [(ngModel)]="h.pvcode" optionLabel="pvname" optionValue="pvcode">
+            <div class="card">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                    <! –– แถวที่1 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="off_id">รหัสรพ.</label> <input type="text" name="off_id" id="off_id" [(ngModel)]="h.off_id" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="off_name">ชื่อรพ.</label> <input type="text" name="off_name" id="off_name" [(ngModel)]="h.off_name" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่2 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
 
-               
-            </p-dropdown> 
-                    </div> </div>
-             <div class="col-sm"> <div class="form-group"> <label for="ampcode">รหัสอำเภอ</label>
-                <p-dropdown name="ampcode"  (onChange)="onAmpchange($event)" [options]="ampfilters" [(ngModel)]="h.ampcode" optionLabel="ampname" optionValue="ampcode">
-  </p-dropdown> 
-                </div> </div> <div class="col-sm"> <div class="form-group"> <label for="tambomcode">รหัสตำบล</label>
-                    <p-dropdown name="tamboncode"   [options]="tbfilters" [(ngModel)]="h.tamboncode" optionLabel="tbname" optionValue="tbid">
-                    </p-dropdown> 
-                     
-                    </div> </div></div>
-        <! –– แถวที่3 ––> <div class="row"> <div class="col-sm"> <div class="form-group"> <label for="hossector">ประเภทรพ.</label> 
-            <p-dropdown name="hossector" [options]="hossectors" [(ngModel)]="h.hossector" optionLabel="sector" optionValue="sector"></p-dropdown> 
-        </div> </div> <div class="col-sm"> <div class="form-group"> <label for="hosheader">ผู้อำนวยการ</label> <input type="text" name="hosheader" id="hosheader" [(ngModel)]="h.hosheader" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div></div>
-        <! –– แถวที่4 ––> <div class="row"> <div class="col-sm"> <div class="form-group">
-            <label for="admit" class="form-label">วันเริ่มเปิดรพ.</label>
-            <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันเริ่มเปิดรพ." class="form-control" #dp3="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="dob" bsDatepicker>
-                <span class="input-group-text fa fa-calendar" id="basic-addon3" (click)="dp3.toggle()"  [attr.aria-expanded]="dp3.isOpen"></span>
-            </div>
-        
-                      </div> </div> <div class="col-sm"> <div class="form-group"> <label for="pointx">latitude</label> <input type="text" name="pointx" id="pointx" [(ngModel)]="h.pointx" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div> <div class="col-sm"> <div class="form-group"> <label for="pointy">longitude</label> <input type="text" name="pointy" id="pointy" [(ngModel)]="h.pointy" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div></div>
-        <! –– แถวที่5 ––> <div class="row"> <div class="col-sm"> <div class="form-group"> <label for="tel">เบอร์โทร</label> <input type="text" name="tel" id="tel" [(ngModel)]="h.tel" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div> <div class="col-sm"> <div class="form-group"> <label for="email">Emailติดต่อรับรหัสผ่าน</label> <input type="text" name="email" id="email" [(ngModel)]="h.email" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div></div>
-        <! –– แถวที่6 ––> <div class="row"> <div class="col-sm"> <div class="form-group"> <label for="daydischarge">จำนวนวันเนอน</label> <input type="text" name="daydischarge" id="daydischarge" [(ngModel)]="h.daydischarge" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div> <div class="col-sm"> <div class="form-group"> <label for="pincode">รหัสผ่าน</label> <input type="text" name="pincode" id="pincode" [(ngModel)]="h.pincode" class="form-control" placeholder="" aria-describedby="helpId"> </div> </div></div>        </div>
 
-        <div class="form-group row">
-            <div class="col-sm-1-12">
-                <div class="d-flex flex-row-reverse bd-highlight"><button type="button" (click)="doSave()" class="btn btn-primary  float-right">บันทึก</button></div>
+                                <label for="pvcode">รหัสจังหวัด</label>
+                                <p-dropdown name="pvcode" (onChange)="onPvchange($event)" [options]="pvs" [(ngModel)]="h.pvcode" optionLabel="pvname" optionValue="pvcode">
+
+
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="ampcode">รหัสอำเภอ</label>
+                                <p-dropdown name="ampcode" (onChange)="onAmpchange($event)" [options]="ampfilters" [(ngModel)]="h.ampcode" optionLabel="ampname" optionValue="ampcode">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="tambomcode">รหัสตำบล</label>
+                                <p-dropdown name="tamboncode" [options]="tbfilters" [(ngModel)]="h.tamboncode" optionLabel="tbname" optionValue="tbid">
+                                </p-dropdown>
+
+                            </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่3 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="hossector">ประเภทรพ.</label>
+                                <p-dropdown name="hossector" [options]="hossectors" [(ngModel)]="h.hossector" optionLabel="sector" optionValue="sector"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="hosheader">ผู้อำนวยการ</label> <input type="text" name="hosheader" id="hosheader" [(ngModel)]="h.hosheader" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่4 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="admit" class="form-label">วันเริ่มเปิดรพ.</label>
+                                <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="วันเริ่มเปิดรพ." class="form-control" #dp3="bsDatepicker" name="bsDatepicker" [bsConfig]="{isAnimated: true,dateInputFormat: 'DD-MM-YYYY'}" [(ngModel)]="dob" bsDatepicker>
+                                    <span class="input-group-text fa fa-calendar" id="basic-addon3" (click)="dp3.toggle()" [attr.aria-expanded]="dp3.isOpen"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="pointx">latitude</label> <input type="text" name="pointx" id="pointx" [(ngModel)]="h.pointx" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="pointy">longitude</label> <input type="text" name="pointy" id="pointy" [(ngModel)]="h.pointy" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่5 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="tel">เบอร์โทร</label> <input type="text" name="tel" id="tel" [(ngModel)]="h.tel" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="email">Emailติดต่อรับรหัสผ่าน</label> <input type="text" name="email" id="email" [(ngModel)]="h.email" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่6 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="daydischarge">จำนวนวันเนอน</label> <input type="text" name="daydischarge" id="daydischarge" [(ngModel)]="h.daydischarge" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="pincode">รหัสผ่าน</label> <input type="text" name="pincode" id="pincode" [(ngModel)]="h.pincode" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-1-12">
+                        <div class="d-flex flex-row-reverse bd-highlight"><button type="button" (click)="doSave()" class="btn btn-primary  float-right">บันทึก</button></div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-       
+        </form>
     </div>
-</form>
-</div>
-<div class="modal-footer">
-    <button type="button"  class="btn btn-default" (click)="modalRef.hide()">Close</button>
-</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+    </div>
 </ng-template>
