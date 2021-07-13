@@ -20,7 +20,7 @@ import { TableModule } from 'primeng/table';
 import { MessageService } from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [ThaiDatePipe,
@@ -29,7 +29,7 @@ import {ConfirmationService} from 'primeng/api';
    
   ],
   imports: [BrowserAnimationsModule,TableModule,
-    BrowserModule,ConfirmDialogModule,
+    BrowserModule,ConfirmDialogModule,DropdownModule,
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),
     BsDropdownModule,
     HttpClientModule,CommonModule ,ModalModule

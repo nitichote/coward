@@ -10,13 +10,30 @@ import * as m from '../model/cowordmodel';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private ps:ApiChoteService,private router:Router) { }
+  constructor(public ps:ApiChoteService,private router:Router) { }
 txtUser="";
 txtPass="";
 isRemember=false;
+doLogAdmin(){
+if(this.txtPass=="2248"){
+  this.errormessage="";
+  this.ps.isAdmin=true;
+  this.ps.isAdminLogin = true;
+  this.ps.loglevel = 0;
+}else{
+        
+         this.errormessage="ท่านป้อน username หรือ pincode ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง"+
+        " <span><i class='fas fa-sad-tear fa-x'></i></span>";
+       }    
+
+}
   doLogin(){
     this.txtUser=this.txtUser.trim();
     this.txtPass=this.txtPass.trim();
+if(this.txtUser=='admin'){
+  this.doLogAdmin();
+}else{
+
     if(this.txtUser.length != 5 && this.txtPass.length < 4){
      
       this.errormessage="ท่านป้อน username หรือ pincode ไมม่ถูกต้อง กรุณาลองใหม่อีกครั้ง"; 
@@ -38,8 +55,8 @@ isRemember=false;
        }        
       });
     }
-  
-    this.router.navigateByUrl('/login');
+}
+    this.router.navigateByUrl('/admin');
 }
 hoss=[];
 hos!:m.Hospital36;

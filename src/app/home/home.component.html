@@ -10,8 +10,26 @@
             </div>
         </div>
     </nav>
+<div class="row">
+    <div class="col-4">
+        <div class="container mt-5">
+     <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+       <h5 class="card-title">เลือกประเภทโรงพยาบาล</h5>
+        
+            <p-dropdown name="hossector"  [style]="{'minWidth':'100%'}" (onChange)="onSectorchange($event)" [options]="hossectors" [(ngModel)]="selectSector" optionLabel="sector" optionValue="sector">
+        </p-dropdown>
+       <div class="mt-3"> <h5 >เลือกอำเภอ</h5></div>
+       <p-dropdown name="amp" (onChange)="onAmpchange($event)" [style]="{'minWidth':'100%'}" [options]="amps36" [(ngModel)]="selectAmp" optionLabel="ampname" optionValue="ampcode">
+    </p-dropdown>
+    </div>
+</div>       
+        </div>
 
-    <p-table class="Table" [value]="hoss" [autoLayout]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+    </div>
+    <div class="col">
+    <p-table class="Table" [value]="hoss" [autoLayout]="true" [paginator]="true" [rows]="30" [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>รายการที่</th>
@@ -40,19 +58,34 @@
         </ng-template>
     </p-table>
 
-    <div class="nav d-flex align-items-center align-content-center  ">
-        <h3> จำนวนคาดการณ์เตียงว่างรายเดือน</h3>
     </div>
-    <div class="d-flex">
-        <ul class="nav d-flex  ">
-            <li class="nav-item" *ngFor="let m of monththais; let i=index">
-                <a class="nav-link active" (click)="doSelectMonth(i+1)" aria-current="page" href="javascript:void(0);">{{m}}</a>
-            </li>
+</div>
 
-        </ul>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid ">
+
+            <div class="navbar-header">
+                <h4> จำนวนคาดการณ์เตียงว่างรายเดือน</h4>
+               <span class="mr-5">   <h5> เดือน {{thaimonthfull}}</h5></span>
+            </div>
+            <div class="nav navbar-right">
+                <ul class="nav d-flex  ">
+                    <li class="nav-item" *ngFor="let m of monththais; let i=index">
+                        <a 
+                        *ngIf="i >= todaymonth" class="nav-link active" (click)="doSelectMonth(i+1)" aria-current="page" href="javascript:void(0);">{{m}}</a>
+                    </li>
+        
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+       
     </div>
     <div>..</div>
-    <p-table class="Table" [value]="hoss" [autoLayout]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+    <p-table class="Table" [value]="hoss" [autoLayout]="true" [paginator]="true" [rows]="30" [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th>..</th>
@@ -62,12 +95,12 @@
 
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-p let-i="rowIndex">
+        <ng-template pTemplate="body" let-p let-w="rowIndex">
             <tr>
-                <td scope="row">{{i+1}}.</td>
+                <td scope="row">{{w+1}}.</td>
 
                 <td>{{p?.off_name}}</td>
-                <td *ngFor="let d of daycols; let i=index">{{doSumPtinBed('10702',d)}}</td>
+                <td *ngFor="let d of daycols; let i=index">{{doSumPtinBed(p?.off_id,d,p?.bed)}}</td>
 
             </tr>
         </ng-template>

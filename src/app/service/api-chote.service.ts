@@ -11,7 +11,10 @@ import * as m from "../model/cowordmodel";
 export class ApiChoteService {
 
   public isLogin = false;
+  public isAdminLogin = false;
   h!:m.Hospital36;
+  public loglevel=99;
+  public isAdmin=false;
   getLogStatus(){
 
 
@@ -24,9 +27,15 @@ export class ApiChoteService {
   }
   setLogin(){
     this.isLogin =true;
+    this.isAdmin=false;
+    this.loglevel = 3;
   }
   setLogout(){
     this.isLogin = false;
+    this.isAdmin=false;
+    this.isAdminLogin = false;
+    this.loglevel = 99;
+    localStorage.clear();
   }
   setLocal(o:m.Hospital36,isRemember:boolean) {
    let remember =isRemember;

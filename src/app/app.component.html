@@ -10,18 +10,18 @@
           <a class="nav-link active" aria-current="page" href="javascript:void(0)"[routerLink]="['/home']"   >Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="javascript:void(0)" [routerLink]="['/pt']"  >ข้อมูลการใช้เตียง</a>
+          <a class="nav-link" *ngIf="ps.isAdmin || ps.isLogin" href="javascript:void(0)" [routerLink]="['/pt']"  >ข้อมูลการใช้เตียง</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="ps.isLogin" class="nav-item">
           <a class="nav-link" href="javascript:void(0)" [routerLink]="['/setting']"  >ตั้งค่าเริ่มต้น</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="ps.isAdmin" class="nav-item">
           <a class="nav-link" href="javascript:void(0)" [routerLink]="['/admin']"  >Admin</a>
         </li>
       </ul>
       <form class="d-flex">
-               <button *ngIf="! ps.isLogin"  class="btn btn-outline-success" type="button" (click)="goLogin()" >Login</button>
-               <button *ngIf="ps.isLogin"  class="btn btn-outline-success" type="button" (click)="doLogout()" >Logout</button>
+               <button *ngIf="! (ps.isLogin || ps.isAdminLogin)"  class="btn btn-outline-success" type="button" (click)="goLogin()" >Login</button>
+               <button *ngIf="ps.isLogin || ps.isAdminLogin"  class="btn btn-outline-success" type="button" (click)="doLogout()" >Logout</button>
       </form>
     </div>
   </div>
